@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  money-transfer:
+    image: money-transfer:1.0
+    ports:
+      - 5500
+    build: ./
+    environment:
+      TEST: env_money_transfer
