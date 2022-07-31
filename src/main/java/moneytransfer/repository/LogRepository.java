@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Repository
-public class LogRepository {
+public class LogRepository implements RepositoryInterface {
     private final ConcurrentLinkedQueue<Log> logStore = new ConcurrentLinkedQueue<>();
 
     public void save(Log log) {
@@ -18,5 +18,9 @@ public class LogRepository {
 
     public List<Log> getLogs() {
         return Collections.unmodifiableList(Arrays.asList(logStore.toArray(new Log[0])));
+    }
+
+    public ConcurrentLinkedQueue<Log> getLogStore() {
+        return logStore;
     }
 }

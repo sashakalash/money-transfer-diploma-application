@@ -1,14 +1,15 @@
-package moneytransfer.services;
+package moneytransfer.services.transfer;
 
 import moneytransfer.models.Transfer;
 import moneytransfer.models.TransferSuccessResponse;
+import moneytransfer.services.logger.LoggerServiceInterface;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransferSevice {
-    private LoggerService loggerService;
+public class TransferService implements TransferServiceInterface {
+    private LoggerServiceInterface loggerService;
 
-    public TransferSevice(LoggerService loggerService) {
+    public TransferService(LoggerServiceInterface loggerService) {
         this.loggerService = loggerService;
     }
 
