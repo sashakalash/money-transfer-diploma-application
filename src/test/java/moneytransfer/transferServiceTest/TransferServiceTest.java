@@ -1,9 +1,6 @@
-package transferServiceTest;
+package moneytransfer.transferServiceTest;
 
-import moneytransfer.models.Amount;
-import moneytransfer.models.Log;
-import moneytransfer.models.Transfer;
-import moneytransfer.models.TransferSuccessResponse;
+import moneytransfer.models.*;
 import moneytransfer.services.logger.LoggerServiceInterface;
 import moneytransfer.services.transfer.TransferServiceInterface;
 import moneytransfer.services.transfer.TransferService;
@@ -14,6 +11,7 @@ import org.mockito.Mockito;
 public class TransferServiceTest {
     private LoggerServiceInterface loggerServiceMock;
     private TransferServiceInterface transferSeviceImpl;
+    private TransferSuccessResponse transferResp;
     private final Amount amount = new Amount(
             1000,
             "USD"
@@ -26,24 +24,40 @@ public class TransferServiceTest {
             amount
     );
     private final Log log = new Log(transfer);
+    private final String VERIFICATION_CODE = "0000";
+    private ConfirmOperation confirmOperation;
+
 
     public TransferServiceTest() {
         loggerServiceMock = Mockito.mock(LoggerServiceInterface.class);
         Mockito.when(loggerServiceMock.log(transfer))
                 .thenReturn(log.getId());
         transferSeviceImpl = Mockito.spy(new TransferService(loggerServiceMock));
+        transferResp = transferSeviceImpl.transfer(transfer);
+        confirmOperation = new ConfirmOperation(transferResp.getOperationId(), VERIFICATION_CODE);
     }
 
     @Test
     public void test_transfer_service_response_instance() {
-        final var actual = transferSeviceImpl.transfer(transfer);
-        Assertions.assertEquals(TransferSuccessResponse.class, actual.getClass());
+        final var actual = transferResp.getClass();
+        Assertions.assertEquals(TransferSuccessResponse.class, actual);
     }
 
     @Test
     public void test_transfer_service_response_equal_ids() {
-        final var resp = transferSeviceImpl.transfer(transfer);
-        final var actualId = resp.getOperationId();
+        final var actualId = transferResp.getOperationId();
         Assertions.assertEquals(log.getId(), actualId);
+    }
+
+    @Test
+    public void test_transfer_service_confirm_instance() {
+        final var actual = transferSeviceImpl.confirm(confirmOperation);
+        Assertions.assertEquals(TransferSuccessResponse.class, actual.getClass());
+    }
+
+    @Test
+    public void test_transfer_service_confirm_equal_ids() {
+        final var actualId = transferResp.getOperationId();
+        Assertions.assertEquals(confirmOperation.getOperationId(), actualId);
     }
 }

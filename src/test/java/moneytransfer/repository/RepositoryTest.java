@@ -1,4 +1,4 @@
-package repository;
+package moneytransfer.repository;
 
 import moneytransfer.models.Amount;
 import moneytransfer.models.Log;

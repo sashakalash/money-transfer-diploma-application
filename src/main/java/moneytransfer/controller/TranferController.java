@@ -1,19 +1,18 @@
 package moneytransfer.controller;
 
+import moneytransfer.models.ConfirmOperation;
 import moneytransfer.models.Log;
 import moneytransfer.models.Transfer;
 import moneytransfer.models.TransferSuccessResponse;
 import moneytransfer.services.logger.LoggerService;
 import moneytransfer.services.transfer.TransferService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin()
 public class TranferController {
     private TransferService transService;
     private LoggerService logService;
@@ -29,8 +28,8 @@ public class TranferController {
     }
 
     @PostMapping(value="/confirmOperation")
-    public String confirm() {
-        return "post";
+    public TransferSuccessResponse confirm(@RequestBody ConfirmOperation body) {
+        return transService.confirm(body);
     }
 
     @RequestMapping("/logs")

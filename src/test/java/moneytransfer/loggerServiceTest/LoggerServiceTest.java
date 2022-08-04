@@ -1,4 +1,4 @@
-package loggerServiceTest;
+package moneytransfer.loggerServiceTest;
 
 import moneytransfer.models.Amount;
 import moneytransfer.models.Log;

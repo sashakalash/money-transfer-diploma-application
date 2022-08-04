@@ -11,7 +11,7 @@ public class Log {
     private String cardFromNumber;
     private String cardToNumber;
     private long sum;
-    private long commision;
+    //    private long commision;
     private String result;
 
     public String getDate() {
@@ -54,14 +54,15 @@ public class Log {
         this.sum = sum;
     }
 
-    public long getCommision() {
-        return commision;
-    }
+    /* TO DO uncomment when front sends
+           public long getCommision() {
+           return commision;
+       }
 
-    public void setCommision(long commision) {
-        this.commision = commision;
-    }
-
+       public void setCommision(long commision) {
+           this.commision = commision;
+       }
+     */
     public String getResult() {
         return result;
     }
@@ -79,7 +80,8 @@ public class Log {
         final var timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
         final var currentDate = LocalDateTime.now();
         this.date = dateFormat.format(currentDate);
-        this.time = timeFormat.format(currentDate);;
+        this.time = timeFormat.format(currentDate);
+        ;
         this.cardFromNumber = transfer.getCardFromNumber();
         this.cardToNumber = transfer.getCardToNumber();
         this.sum = transfer.getAmount().getValue();
@@ -88,6 +90,6 @@ public class Log {
         this.commision = transfer.getCommision();
      */
         this.result = result;
-        this.id = String.valueOf(new Random());
+        this.id = String.valueOf(new Random().nextLong());
     }
 }
