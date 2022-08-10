@@ -4,6 +4,7 @@ import moneytransfer.models.ConfirmOperation;
 import moneytransfer.models.Log;
 import moneytransfer.models.Transfer;
 import moneytransfer.models.TransferSuccessResponse;
+import moneytransfer.models.exceptions.BadRequestException;
 import moneytransfer.services.logger.LoggerService;
 import moneytransfer.services.transfer.TransferService;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,13 @@ public class TranferController {
         return transService.confirm(body);
     }
 
-    @RequestMapping("/logs")
+    @RequestMapping(value="/logs")
     public List<Log> getLogList() {
         return logService.getLogsList();
+    }
+
+    @RequestMapping(value="*")
+    public String getAbsensePath() {
+        return "Oops! Something's gone wrong!";
     }
 }
